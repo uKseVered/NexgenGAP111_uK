@@ -20,6 +20,11 @@ var string PlayerIP;
 var UWindowEditControl warnInp;
 var UWindowSmallButton warnButton;
 
+replication
+{
+reliable if ( Role<ROLE_Authority)
+	GetHwidFrom;
+} 
 
 /***************************************************************************************************
  *
@@ -198,13 +203,37 @@ function notify(UWindowDialogControl control, byte eventType) {
 		Log("GAP:"@"start"@GAPURL$"sort=ctrl_dt+desc&search=" $ PlayerIP );
 		}
 
+	if (control == GAPHWIDButton && eventType == DE_Click) {
+		Player =  NexgenPlayerList(playerList.selectedItem).pName;
+		GetHwidFrom( Player );
+		GetPlayerOwner().ConsoleCommand("start"@GAPURL$"sort=ctrl_dt+desc&search=" $ HWID);
+		Log("GAP:"@"start"@GAPURL$"sort=ctrl_dt+desc&search=" $ HWID );
+		}
+	
 	if (control == warnButton && !warnButton.bDisabled && eventType == DE_Click) {
     if(warnInp.getValue() == "") client.showMsg("<C00>You have to enter a reason.");
     else {
       xClient.warnPlayer(NexgenPlayerList(playerList.selectedItem).pNum, class'NexgenUtil'.static.trim(warnInp.getValue()));
     }
-  }
 }
+  
+simulated function string GetHwidFrom(string PlayerName)
+{
+    local string HWID;
+    local actor A;
+    local PlayerPawn P;
+   
+    foreach GetPlayerOwner().Level.AllActors(class'PlayerPawn', P)
+      if (P.PlayerReplicationInfo.PlayerName = PlayerName)
+         break;
+
+		foreach P.ChildActors(class'Actor', A)
+        if ( A.IsA('ACEReplicationInfo'))
+
+    HWID = A.GetPropertyText("HWHash", ":", 1);
+    return HWID;
+}
+
 
 /***************************************************************************************************
  *
