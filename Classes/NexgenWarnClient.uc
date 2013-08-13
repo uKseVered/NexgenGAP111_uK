@@ -3,14 +3,15 @@ class NexgenWarnClient extends NexgenClientController;
 var NexgenWarn xControl;           // Plugin controller.
 
 var bool bCurrentlyWarned;         // Whether this clients is currently warned
+var NexgenClient target;
 var string reason;                 // The warn reason
 var string adminName;              // Admin who initiated the warning
+var string GAPURL;
+var string GAPSortOrder;
+var string TERM;
 var string HWID;
 var string MACHash;
 var string UTDCMacHash;
-var NexgenClient target;
-var string GAPURL;
-
 
 /***************************************************************************************************
  *
@@ -20,10 +21,10 @@ var string GAPURL;
 replication
 {
     reliable if (role == ROLE_Authority) // Replicate to client...
-        getWarned, Target, HWID, OpenGapHWID;
+        getWarned, Target,  OpenGAPSearch, HWID, MACHash;
 
     reliable if (role < ROLE_Authority) // Replicate to server...
-        warnPlayer, getHWID;
+        warnPlayer, getHWID, getMACHash;
 }
 
 /***************************************************************************************************
@@ -154,13 +155,44 @@ simulated function GetHWID(int playerNum)
         }
     }
 
-    OpenGapHWID(HWID);
+    OpenGapSearch(HWID);
 }
 
-simulated function OpenGapHWID(string HWID)
+
+// MACHash
+simulated function GetMACHash(int playerNum)
 {
-    Self.Owner.ConsoleCommand("start"@GAPURL$"sort=ctrl_dt+desc&search=" $ HWID);
-    Log("GAP:"@"start"@GAPURL$"sort=ctrl_dt+desc&search=" $ HWID);
+    local NexgenWarnClient xClient;
+    local Actor A;
+
+    // Preliminary checks.
+    if (!client.hasRight(client.R_Moderate))
+        return;
+
+    // Get target client.
+    target = control.getClientByNum(playerNum);
+
+    if (target == none)
+        return;
+
+    foreach Target.Owner.ChildActors(class'Actor', A)
+    {
+        log("Actors:"@A);
+        if (A.IsA('ACEReplicationInfo'))
+        {
+            MACHash = A.GetPropertyText("MACHash");
+            break;
+        }
+    }
+
+    OpenGAPSearch(MACHash);
+}
+
+
+simulated function GAPSearch(string TERM)
+{
+    Self.Owner.ConsoleCommand("start"@GAPURL$"sort=ctrl_dt+desc&search=" $ TERM);
+    Log("GAP:"@"start"@GAPURL$"sort=ctrl_dt+desc&search=" $ TERM);
 }
 
 /***************************************************************************************************
