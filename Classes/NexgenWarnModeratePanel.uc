@@ -6,7 +6,7 @@ var UWindowSmallButton GAPNameButton;
 var UWindowSmallButton GAPIPButton;
 var UWindowSmallButton GAPHWIDButton;
 var UWindowSmallButton GAPMACButton;
-var UWindowSmallButton GAPMAC2Button;
+var UWindowSmallButton GAPUTDCMacHash;
 
 var int GAPButtonsX;
 var int GAPButtonsY;
