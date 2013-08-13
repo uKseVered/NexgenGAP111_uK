@@ -49,7 +49,7 @@ function clientCreated(NexgenClient client) {
 
 defaultproperties
 {
-     pluginName="Nexgen Warning Plugin"
+     pluginName="Nexgen Warning/GAP Plugin"
      pluginAuthor="Sp0ngeb0b"
      pluginVersion="1.0"
 }
