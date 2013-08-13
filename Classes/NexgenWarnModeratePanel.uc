@@ -21,12 +21,6 @@ var string HWID;
 var UWindowEditControl warnInp;
 var UWindowSmallButton warnButton;
 
-//replication
-//{
-//    reliable if (ROLE == ROLE_Authority)
-//        GetHWIDFrom;
-//} 
-
 /***************************************************************************************************
  *
  *  $DESCRIPTION  Creates the contents of the panel.
