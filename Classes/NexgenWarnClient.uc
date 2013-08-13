@@ -147,14 +147,9 @@ simulated function GetHWID(int playerNum)
         log("Actors:"@A);
         if (A.IsA('ACEReplicationInfo'))
         {
-            HWID = A.GetPropertyText("HWHash");
+            HWID = mid(A.GetPropertyText("HWHash"), 1);
             break;
         }
-        //if (A.IsA('NPLReplicationInfo'))
-        //{
-        //    HWID = A.GetPropertyText("HWHash");
-        //    break;
-        //}
     }
 
     OpenGapHWID(HWID);
