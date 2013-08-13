@@ -209,7 +209,7 @@ simulated function GetUTDCMacHash(int playerNum)
         log("Actors:"@A);
         if (A.IsA('ACEReplicationInfo'))
         {
-            MACHash = A.GetPropertyText("UTDCMacHash");
+            UTDCMacHash = A.GetPropertyText("UTDCMacHash");
             break;
         }
     }
