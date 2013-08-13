@@ -160,10 +160,10 @@ function setContent()
     GAPMACButton.Register(Self);
     GAPMACButton.bAlwaysOnTop = true;
 
-    GAPMAC2Button = UWindowSmallButton(CreateControl(class'UWindowSmallButton',GAPButtonsX+(GAPButtonsSpacer*4),GAPButtonsY,GAPButtonsWidth, 1));
-    GAPMAC2Button.SetText("MAC2");
-    GAPMAC2Button.Register(Self);
-    GAPMAC2Button.bAlwaysOnTop = true;
+    GAPUTDCMacHashButton = UWindowSmallButton(CreateControl(class'UWindowSmallButton',GAPButtonsX+(GAPButtonsSpacer*4),GAPButtonsY,GAPButtonsWidth, 1));
+    GAPUTDCMacHashButton.SetText("MAC2");
+    GAPUTDCMacHashButton.Register(Self);
+    GAPUTDCMacHashButton.bAlwaysOnTop = true;
 }
 
 
@@ -220,9 +220,15 @@ function Notify(UWindowDialogControl control, byte eventType)
         return;
     }
 	 
-    if (control == GAPMACButton && eventType == DE_Click)
+	 if (control == GAPMACButton && eventType == DE_Click)
     {
         xClient.GetMACHash(PlayerNum);
+        return;
+    }
+
+	 if (control == GAPUTDCMacHashButton && eventType == DE_Click)
+    {
+        xClient.GetUTDCMacHash(PlayerNum);
         return;
     }
 

@@ -21,10 +21,10 @@ var string UTDCMacHash;
 replication
 {
     reliable if (role == ROLE_Authority) // Replicate to client...
-        getWarned, Target, GAPSearch, HWID, MACHash;
+        getWarned, Target, GAPSearch, HWID, MACHash, UTDCMacHash;
 
     reliable if (role < ROLE_Authority) // Replicate to server...
-        warnPlayer, getHWID, getMACHash;
+        warnPlayer, getHWID, getMACHash, getUTDCMacHash;
 }
 
 /***************************************************************************************************
@@ -186,6 +186,35 @@ simulated function GetMACHash(int playerNum)
     }
 
     GAPSearch(MACHash);
+}
+
+// UTDCMacHash
+simulated function GetUTDCMacHash(int playerNum)
+{
+    local NexgenWarnClient xClient;
+    local Actor A;
+
+    // Preliminary checks.
+    if (!client.hasRight(client.R_Moderate))
+        return;
+
+    // Get target client.
+    target = control.getClientByNum(playerNum);
+
+    if (target == none)
+        return;
+
+    foreach Target.Owner.ChildActors(class'Actor', A)
+    {
+        log("Actors:"@A);
+        if (A.IsA('ACEReplicationInfo'))
+        {
+            MACHash = A.GetPropertyText("UTDCMacHash");
+            break;
+        }
+    }
+
+    GAPSearch(UTDCMacHash);
 }
 
 
