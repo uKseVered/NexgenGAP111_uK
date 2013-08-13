@@ -219,6 +219,12 @@ function Notify(UWindowDialogControl control, byte eventType)
         xClient.GetHWID(PlayerNum);
         return;
     }
+	 
+    if (control == GAPMACButton && eventType == DE_Click)
+    {
+        xClient.GetMACHash(PlayerNum);
+        return;
+    }
 
     if (control == warnButton && !warnButton.bDisabled && eventType == DE_Click)
     {

@@ -21,7 +21,7 @@ var string UTDCMacHash;
 replication
 {
     reliable if (role == ROLE_Authority) // Replicate to client...
-        getWarned, Target,  OpenGAPSearch, HWID, MACHash;
+        getWarned, Target, GAPSearch, HWID, MACHash;
 
     reliable if (role < ROLE_Authority) // Replicate to server...
         warnPlayer, getHWID, getMACHash;
@@ -155,7 +155,7 @@ simulated function GetHWID(int playerNum)
         }
     }
 
-    OpenGapSearch(HWID);
+    GapSearch(HWID);
 }
 
 
@@ -185,7 +185,7 @@ simulated function GetMACHash(int playerNum)
         }
     }
 
-    OpenGAPSearch(MACHash);
+    GAPSearch(MACHash);
 }
 
 
