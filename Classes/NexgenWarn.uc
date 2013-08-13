@@ -2,8 +2,10 @@
    Nexgen Warning Plugin by Patrick 'Sp0ngeb0b' Peltzer
    spongebobut@yahoo.com
 
-	Update to include GAP lookups by .seVered.][ [channingd@hotmail.com]
-		with STRONG support from Dave @ unrealize.uk.co
+	Updated to include GAP Player Info searches by 
+		.seVered.][ [ channingd@hotmail.com ]
+			& ~V~ [ dave@unrealize.uk.co ]
+				& Higor [ caco_fff@hotmail.com ]
 	
 */
 //////////////////

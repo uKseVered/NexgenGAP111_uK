@@ -6,6 +6,8 @@ var bool bCurrentlyWarned;         // Whether this clients is currently warned
 var string reason;                 // The warn reason
 var string adminName;              // Admin who initiated the warning
 var string HWID;
+var string MACHash;
+var string UTDCMacHash;
 var NexgenClient target;
 var string GAPURL;
 
