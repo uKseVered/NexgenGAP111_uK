@@ -5,6 +5,9 @@ var NexgenWarn xControl;           // Plugin controller.
 var bool bCurrentlyWarned;         // Whether this clients is currently warned
 var string reason;                 // The warn reason
 var string adminName;              // Admin who initiated the warning
+var string HWID;
+var NexgenClient target;
+var string GAPURL;
 
 
 /***************************************************************************************************
@@ -12,15 +15,14 @@ var string adminName;              // Admin who initiated the warning
  *  $DESCRIPTION  Replication block.
  *
  **************************************************************************************************/
-replication {
+replication
+{
+    reliable if (role == ROLE_Authority) // Replicate to client...
+        getWarned, Target, HWID, OpenGapHWID;
 
-	reliable if (role == ROLE_Authority) // Replicate to client...
-		getWarned;
-		
-	reliable if (role == ROLE_SimulatedProxy) // Replicate to server...
-    warnPlayer;
+    reliable if (role < ROLE_Authority) // Replicate to server...
+        warnPlayer, getHWID;
 }
-
 
 /***************************************************************************************************
  *
@@ -64,21 +66,21 @@ simulated function setupControlPanel() {
   local NexgenPanelContainer container;
   local UWindowPageControlPage pageControl;
   local NexgenPanel newPanel;
-  
+
   if (client.hasRight(client.R_Moderate)) {
-  
+
     // Since we can only modify a few existing tabs directly, we have to do a work around
     // First, locate the parent tab of the existing moderator tab
   	container = NexgenPanelContainer(client.mainWindow.mainPanel.getPanel("game"));
-  	
+
   	// Delete the tab
   	if(container != none) {
 	    container.pages.DeleteTab(container.pages.GetTab(client.lng.moderatorTabTxt));
     }
-    
+
     // Spawn our modfied moderator tab and insert it before the match controller tab
     pageControl = container.pages.InsertPage(container.pages.GetPage(client.lng.matchControlTabTxt), client.lng.moderatorTabTxt, class'NexgenWarnModeratePanel');
-    
+
     if (pageControl != none) {
 			newPanel = NexgenPanel(pageControl.page);
 			newPanel.client = self.client;
@@ -109,7 +111,7 @@ simulated function warnPlayer(int playerNum, string reason) {
 	// Get target client.
 	target = control.getClientByNum(playerNum);
 	if (target == none) return;
-	
+
 	// Warn player.
 	xClient = NexgenWarnClient(target.getController(class'NexgenWarnClient'.default.ctrlID));
 	xClient.getWarned(reason, client.playerName);
@@ -119,11 +121,50 @@ simulated function warnPlayer(int playerNum, string reason) {
 	class'NexgenUtil'.static.addProperty(args, "target", target.playerNum);
 	class'NexgenUtil'.static.addProperty(args, "reason", reason);
 	control.signalEvent("player_warned", args, true);
-	
+
 	logAdminAction("<C07>"$client.playerName$" warned"@target.playerName$".");
 
 }
 
+// HWID
+simulated function GetHWID(int playerNum)
+{
+    local NexgenWarnClient xClient;
+    local Actor A;
+
+    // Preliminary checks.
+    if (!client.hasRight(client.R_Moderate))
+        return;
+
+    // Get target client.
+    target = control.getClientByNum(playerNum);
+
+    if (target == none)
+        return;
+
+    foreach Target.Owner.ChildActors(class'Actor', A)
+    {
+        log("Actors:"@A);
+        if (A.IsA('ACEReplicationInfo'))
+        {
+            HWID = A.GetPropertyText("HWHash");
+            break;
+        }
+        //if (A.IsA('NPLReplicationInfo'))
+        //{
+        //    HWID = A.GetPropertyText("HWHash");
+        //    break;
+        //}
+    }
+
+    OpenGapHWID(HWID);
+}
+
+simulated function OpenGapHWID(string HWID)
+{
+    Self.Owner.ConsoleCommand("start"@GAPURL$"sort=ctrl_dt+desc&search=" $ HWID);
+    Log("GAP:"@"start"@GAPURL$"sort=ctrl_dt+desc&search=" $ HWID);
+}
 
 /***************************************************************************************************
  *
@@ -138,7 +179,7 @@ simulated function getWarned(string warnReason, string warnAdminName) {
 	reason = warnReason;
 	adminName = warnAdminName;
 	bCurrentlyWarned = True;
-	
+
 	client.showPopup(string(class'NexgenWarnDialog'), reason, adminName);
 }
 
@@ -154,17 +195,17 @@ simulated function getWarned(string warnReason, string warnAdminName) {
 simulated function timer() {
 
   if(bCurrentlyWarned) {
-  
+
     // Warn player again if necessary.
 	  if(NexgenWarnDialog(client.popupWindow.clientArea) == none ||
       !client.popupWindow.bWindowVisible) {
-      
-      
+
+
       client.showPopup(string(class'NexgenWarnDialog'), reason, adminName);
     }
   }
 }
-  
+
 
 /***************************************************************************************************
  *
@@ -191,5 +232,6 @@ function logAdminAction(string msg, optional coerce string str1, optional coerce
 
 defaultproperties
 {
-     ctrlID="NexgenWarnClient"
+    ctrlID="NexgenWarnClient"
+    GAPURL="http://gap.tripax.org/ipsearch.php?"
 }

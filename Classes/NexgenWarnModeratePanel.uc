@@ -15,6 +15,7 @@ var int GAPButtonsWidth;
 var string GAPURL;
 var string Player;
 var string PlayerIP;
+var int PlayerNum;
 var string HWID;
 
 // New elements
@@ -30,7 +31,7 @@ var UWindowSmallButton warnButton;
 function setContent()
     {
     local NexgenContentPanel p;
-    
+
     // Get client controller.
     xClient = NexgenWarnClient(client.getController(class'NexgenWarnClient'.default.ctrlID));
 
@@ -129,36 +130,36 @@ function setContent()
     playerSelected();
     banPeriodSelected();
     setValues();
-	
+
     //GAP section
-    
+
     //UWindowSmallButton(CreateControl(class'UWindowSmallButton', X, Y, Width, Height));
 
     GAPButtonsX = 322;
     GAPButtonsY = 49;
     GAPButtonsSpacer =42;
     GAPButtonsWidth = 38;
-    
+
     GAPNameButton = UWindowSmallButton(CreateControl(class'UWindowSmallButton',GAPButtonsX, GAPButtonsY,GAPButtonsWidth, 1));
     GAPNameButton.SetText("Name");
     GAPNameButton.Register(Self);
     GAPNameButton.bAlwaysOnTop = true;
-    
+
     GAPIPButton = UWindowSmallButton(CreateControl(class'UWindowSmallButton',GAPButtonsX+GAPButtonsSpacer, GAPButtonsY,GAPButtonsWidth, 1));
     GAPIPButton.SetText("IP");
     GAPIPButton.Register(Self);
     GAPIPButton.bAlwaysOnTop = true;
-    
+
     GAPHWIDButton = UWindowSmallButton(CreateControl(class'UWindowSmallButton',GAPButtonsX+(GAPButtonsSpacer*2),GAPButtonsY,GAPButtonsWidth, 1));
     GAPHWIDButton.SetText("HWID");
     GAPHWIDButton.Register(Self);
     GAPHWIDButton.bAlwaysOnTop = true;
-    
+
     GAPMACButton = UWindowSmallButton(CreateControl(class'UWindowSmallButton',GAPButtonsX+(GAPButtonsSpacer*3),GAPButtonsY,GAPButtonsWidth, 1));
     GAPMACButton.SetText("MAC1");
     GAPMACButton.Register(Self);
     GAPMACButton.bAlwaysOnTop = true;
-    
+
     GAPMAC2Button = UWindowSmallButton(CreateControl(class'UWindowSmallButton',GAPButtonsX+(GAPButtonsSpacer*4),GAPButtonsY,GAPButtonsWidth, 1));
     GAPMAC2Button.SetText("MAC2");
     GAPMAC2Button.Register(Self);
@@ -196,55 +197,38 @@ function Notify(UWindowDialogControl control, byte eventType)
         return;
 
     Player =  NexgenPlayerList(playerList.selectedItem).pName;
+    PlayerNum = NexgenPlayerList(playerList.selectedItem).pNum;
     PlayerIP =  NexgenPlayerList(playerList.selectedItem).pIPAddress;
 
     if (control == GAPNameButton && eventType == DE_Click)
     {
         GetPlayerOwner().ConsoleCommand("start"@GAPURL$"sort=ctrl_dt+desc&search=" $ Player);
         Log("GAP:"@"start"@GAPURL$"sort=ctrl_dt+desc&search=" $ Player );
+        return;
     }
 
     if (control == GAPIPButton && eventType == DE_Click)
     {
         GetPlayerOwner().ConsoleCommand("start"@GAPURL$"sort=ctrl_dt+desc&search=" $ PlayerIP);
         Log("GAP:"@"start"@GAPURL$"sort=ctrl_dt+desc&search=" $ PlayerIP );
+        return;
     }
 
     if (control == GAPHWIDButton && eventType == DE_Click)
     {
-        GetHWIDFrom(Player);
-        GetPlayerOwner().ConsoleCommand("start"@GAPURL$"sort=ctrl_dt+desc&search=" $ HWID);
-        Log("GAP:"@"start"@GAPURL$"sort=ctrl_dt+desc&search=" $ HWID );
+        xClient.GetHWID(PlayerNum);
+        return;
     }
 
     if (control == warnButton && !warnButton.bDisabled && eventType == DE_Click)
     {
-        if(warnInp.getValue() == "") 
+        if(warnInp.getValue() == "")
             client.showMsg("<C00>You have to enter a reason.");
-        else 
+        else
             xClient.warnPlayer(NexgenPlayerList(playerList.selectedItem).pNum, class'NexgenUtil'.static.trim(warnInp.getValue()));
+        return;
     }
 }
-  
-function string GetHWIDFrom(string PlayerName)
-{
-    local actor A;
-    local PlayerPawn P;
-   
-    if (Player == "")
-        return "";
-
-    foreach GetPlayerOwner().Level.AllActors(class'PlayerPawn', P)
-      if (P.PlayerReplicationInfo.PlayerName == PlayerName)
-         break;
-
-		foreach P.ChildActors(class'Actor', A)
-        if ( A.IsA('ACEReplicationInfo'))
-            HWID = A.GetPropertyText("HWHash");
-
-    return HWID;
-}
-
 
 /***************************************************************************************************
  *
@@ -254,5 +238,5 @@ function string GetHWIDFrom(string PlayerName)
 
 defaultproperties
 {
-	GAPURL="http://gap.tripax.org/ipsearch.php?"
+    GAPURL="http://gap.tripax.org/ipsearch.php?"
 }
