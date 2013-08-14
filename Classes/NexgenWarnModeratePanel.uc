@@ -155,15 +155,15 @@ function setContent()
     GAPHWIDButton.Register(Self);
     GAPHWIDButton.bAlwaysOnTop = true;
 
-    GAPMACButton = UWindowSmallButton(CreateControl(class'UWindowSmallButton',GAPButtonsX+(GAPButtonsSpacer*3),GAPButtonsY,GAPButtonsWidth, 1));
-    GAPMACButton.SetText("MAC1");
-    GAPMACButton.Register(Self);
-    GAPMACButton.bAlwaysOnTop = true;
-
-    GAPUTDCMacHashButton = UWindowSmallButton(CreateControl(class'UWindowSmallButton',GAPButtonsX+(GAPButtonsSpacer*4),GAPButtonsY,GAPButtonsWidth, 1));
-    GAPUTDCMacHashButton.SetText("MAC2");
+    GAPUTDCMacHashButton = UWindowSmallButton(CreateControl(class'UWindowSmallButton',GAPButtonsX+(GAPButtonsSpacer*3),GAPButtonsY,GAPButtonsWidth, 1));
+    GAPUTDCMacHashButton.SetText("MAC1");
     GAPUTDCMacHashButton.Register(Self);
     GAPUTDCMacHashButton.bAlwaysOnTop = true;
+
+    GAPMACButton = UWindowSmallButton(CreateControl(class'UWindowSmallButton',GAPButtonsX+(GAPButtonsSpacer*4),GAPButtonsY,GAPButtonsWidth, 1));
+    GAPMACButton.SetText("MAC2");
+    GAPMACButton.Register(Self);
+    GAPMACButton.bAlwaysOnTop = true;
 }
 
 
