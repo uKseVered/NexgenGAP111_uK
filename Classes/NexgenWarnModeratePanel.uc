@@ -135,10 +135,10 @@ function setContent()
 
     //UWindowSmallButton(CreateControl(class'UWindowSmallButton', X, Y, Width, Height));
 
-    GAPButtonsX = 306;
+    GAPButtonsX = 308;
     GAPButtonsY = 49;
     GAPButtonsSpacer =45;
-    GAPButtonsWidth = 40;
+    GAPButtonsWidth = 39;
 
     GAPNameButton = UWindowSmallButton(CreateControl(class'UWindowSmallButton',GAPButtonsX, GAPButtonsY,GAPButtonsWidth, 1));
     GAPNameButton.SetText("Name");
