@@ -25,10 +25,10 @@ var int updateCounts[2];                          // How many times the settings
 // General settings.
 var int generalSettingsChecksum;                  // Checksum for the general settings variables.
 
-var config  GAPURL;										// URL for GAP Search
-var config  GAPSortOrder; 							// Ascending, Descending
-var GAPUserName;											// if we ever get to use it.			
-var GAPPassword;
+var config string GAPURL;		// URL for GAP Search
+//var config  GAPSortOrder; 	// Ascending, Descending
+//var GAPUserName;		// if we ever get to use it.			
+//var GAPPassword;
 
 
 
