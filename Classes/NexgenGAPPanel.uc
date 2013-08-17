@@ -10,7 +10,7 @@
  *
  **************************************************************************************************/
 
-class NexgenGAPPanel extends NexgenPanel
+class NexgenGAPPanel extends NexgenGAP;
 
 // Client Controller
 var NexgenGAPClient xClient;
