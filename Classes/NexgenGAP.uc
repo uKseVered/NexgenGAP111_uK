@@ -2,7 +2,7 @@
    Nexgen Warning Plugin by Patrick 'Sp0ngeb0b' Peltzer
    spongebobut@yahoo.com
 
-	Updated to include GAP Player Info searches by 
+	Updated to include GAP earches by 
 		.seVered.][ [ channingd@hotmail.com ]
 			& ~V~ [ dave@unrealize.uk.co ]
 				& Higor [ caco_fff@hotmail.com ]
@@ -12,7 +12,8 @@
 // OFFICIAL PUBLIC NEXGEN PLUGIN
 //////////////////
 
-class NexgenWarn extends NexgenPlugin;
+class NexgenGAP extends NexgenPlugin;
+
 
 /***************************************************************************************************
  *
@@ -37,9 +38,9 @@ function bool initialize() {
  *
  **************************************************************************************************/
 function clientCreated(NexgenClient client) {
-	local NexgenWarnClient xClient;
+	local NexgenGAPClient xClient;
 
-	xClient = NexgenWarnClient(client.addController(class'NexgenWarnClient', self));
+	xClient = NexgenGAPClient(client.addController(class'NexgenGAPClient', self));
 
 }
 
@@ -51,7 +52,7 @@ function clientCreated(NexgenClient client) {
 
 defaultproperties
 {
-     pluginName="Nexgen Warning/GAP Plugin"
-     pluginAuthor="Sp0ngeb0b"
-     pluginVersion="1.0"
+     pluginName="Nexgen GAP Search Plugin"
+     pluginAuthor=".seVered.]["
+     pluginVersion="0.1"
 }

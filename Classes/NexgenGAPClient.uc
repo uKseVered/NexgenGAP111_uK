@@ -1,6 +1,6 @@
-class NexgenWarnClient extends NexgenClientController;
+class NexgenGAPClient extends NexgenClientController;
 
-var NexgenWarn xControl;           // Plugin controller.
+var NexgenGAP xControl;           // Plugin controller.
 
 var bool bCurrentlyWarned;         // Whether this clients is currently warned
 var NexgenClient target;
@@ -36,7 +36,7 @@ replication
  *
  **************************************************************************************************/
 function initialize(optional Actor creator) {
-	xControl = NexgenWarn(creator);
+	xControl = NexgenGAP(creator);
 }
 
 
@@ -77,12 +77,12 @@ simulated function setupControlPanel() {
   	container = NexgenPanelContainer(client.mainWindow.mainPanel.getPanel("game"));
 
   	// Delete the tab
-  	if(container != none) {
-	    container.pages.DeleteTab(container.pages.GetTab(client.lng.moderatorTabTxt));
-    }
+//  	if(container != none) {
+//	    container.pages.DeleteTab(container.pages.GetTab(client.lng.moderatorTabTxt));
+//    }
 
     // Spawn our modfied moderator tab and insert it before the match controller tab
-    pageControl = container.pages.InsertPage(container.pages.GetPage(client.lng.matchControlTabTxt), client.lng.moderatorTabTxt, class'NexgenWarnModeratePanel');
+    pageControl = container.pages.InsertPage(container.pages.GetPage(client.lng.matchControlTabTxt), client.lng.moderatorTabTxt, class'NexgenGAPPanel');
 
     if (pageControl != none) {
 			newPanel = NexgenPanel(pageControl.page);
@@ -102,7 +102,7 @@ simulated function setupControlPanel() {
  **************************************************************************************************/
 simulated function warnPlayer(int playerNum, string reason) {
   local NexgenClient target;
-  local NexgenWarnClient xClient;
+  local NexgenGAPClient xClient;
   local string args;
 
 
@@ -116,7 +116,7 @@ simulated function warnPlayer(int playerNum, string reason) {
 	if (target == none) return;
 
 	// Warn player.
-	xClient = NexgenWarnClient(target.getController(class'NexgenWarnClient'.default.ctrlID));
+	xClient = NexgenGAPClient(target.getController(class'NexgenGAPClient'.default.ctrlID));
 	xClient.getWarned(reason, client.playerName);
 
   // Signal event.
@@ -132,7 +132,7 @@ simulated function warnPlayer(int playerNum, string reason) {
 // HWID
 simulated function GetHWID(int playerNum)
 {
-    local NexgenWarnClient xClient;
+    local NexgenGAPClient xClient;
     local Actor A;
 
     // Preliminary checks.
@@ -162,7 +162,7 @@ simulated function GetHWID(int playerNum)
 // MACHash
 simulated function GetMACHash(int playerNum)
 {
-    local NexgenWarnClient xClient;
+    local NexgenGAPClient xClient;
     local Actor A;
 
     // Preliminary checks.
@@ -191,7 +191,7 @@ simulated function GetMACHash(int playerNum)
 // UTDCMacHash
 simulated function GetUTDCMacHash(int playerNum)
 {
-    local NexgenWarnClient xClient;
+    local NexgenGAPClient xClient;
     local Actor A;
 
     // Preliminary checks.
@@ -238,7 +238,7 @@ simulated function getWarned(string warnReason, string warnAdminName) {
 	adminName = warnAdminName;
 	bCurrentlyWarned = True;
 
-	client.showPopup(string(class'NexgenWarnDialog'), reason, adminName);
+	client.showPopup(string(class'NexgenGAPDialog'), reason, adminName);
 }
 
 
@@ -255,11 +255,11 @@ simulated function timer() {
   if(bCurrentlyWarned) {
 
     // Warn player again if necessary.
-	  if(NexgenWarnDialog(client.popupWindow.clientArea) == none ||
+	  if(NexgenGAPDialog(client.popupWindow.clientArea) == none ||
       !client.popupWindow.bWindowVisible) {
 
 
-      client.showPopup(string(class'NexgenWarnDialog'), reason, adminName);
+      client.showPopup(string(class'NexgenGAPDialog'), reason, adminName);
     }
   }
 }
@@ -290,6 +290,6 @@ function logAdminAction(string msg, optional coerce string str1, optional coerce
 
 defaultproperties
 {
-    ctrlID="NexgenWarnClient"
+    ctrlID="NexgenGAPClient"
     GAPURL="http://gap.tripax.org/ipsearch.php?"
 }

@@ -1,7 +1,20 @@
-class NexgenWarnModeratePanel extends NexgenRCPModerate;
+/***************************************************************************************************
+ *
+ *   Nexgen GAP Search Plugin by .seVered.][
+ *
+ *  $CLASS       NexgenGAP
+ *  $VERSION      0.01 (0-0-00)
+ *  $AUTHOR       .seVered.][
+ *  $CONTACT      channingd@hotmaiul.com
+ *  $DESCRIPTION  Base of the GAP Searches tab.
+ *
+ **************************************************************************************************/
+
+class NexgenGAPPanel extends NexgenPanel
 
 // Client Controller
-var NexgenWarnClient xClient;
+var NexgenGAPClient xClient;
+
 var UWindowSmallButton GAPNameButton;
 var UWindowSmallButton GAPIPButton;
 var UWindowSmallButton GAPHWIDButton;
@@ -33,7 +46,7 @@ function setContent()
     local NexgenContentPanel p;
 
     // Get client controller.
-    xClient = NexgenWarnClient(client.getController(class'NexgenWarnClient'.default.ctrlID));
+    xClient = NexgenGAPClient(client.getController(class'NexgenGAPClient'.default.ctrlID));
 
     // Create layout & add components.
     createWindowRootRegion();
@@ -250,5 +263,6 @@ function Notify(UWindowDialogControl control, byte eventType)
 
 defaultproperties
 {
-    GAPURL="http://gap.tripax.org/ipsearch.php?"
+     panelIdentifier="GAP Search"
+	 GAPURL="http://gap.tripax.org/ipsearch.php?"
 }

@@ -1,4 +1,4 @@
-class NexgenWarnDialog extends NexgenPopupDialog;
+class NexgenGAPDialog extends NexgenPopupDialog;
 
 //#exec TEXTURE IMPORT NAME=warnIcon   FILE=Resources\warn.pcx   GROUP="GFX" FLAGS=3 MIPS=OFF
 
@@ -152,7 +152,7 @@ function setContent(optional string reason, optional string adminName, optional 
  *
  **************************************************************************************************/
 function notify(UWindowDialogControl control, byte eventType){
-  local NexgenWarnClient xClient;
+  local NexgenGAPClient xClient;
 
 	super.notify(control, eventType);
 
@@ -161,7 +161,7 @@ function notify(UWindowDialogControl control, byte eventType){
     MycloseButton.bDisabled = !bRead.bChecked;
 	
 		// Get client controller.
-  	xClient = NexgenWarnClient(client.getController(class'NexgenWarnClient'.default.ctrlID));
+  	xClient = NexgenGAPClient(client.getController(class'NexgenGAPClient'.default.ctrlID));
   	
   	if(xClient != none) xClient.bCurrentlyWarned = !bRead.bChecked;
   }
