@@ -12,7 +12,7 @@ var string TERM;
 var string HWID;
 var string MACHash;
 var string UTDCMacHash;
-
+var string GAPTabTxt;
 /***************************************************************************************************
  *
  *  $DESCRIPTION  Replication block.
@@ -82,8 +82,7 @@ simulated function setupControlPanel() {
 //    }
 
     // Spawn our modfied moderator tab and insert it before the match controller tab
-    pageControl = container.pages.InsertPage(container.pages.GetPage(client.lng.matchControlTabTxt), client.lng.moderatorTabTxt, class'NexgenGAPPanel');
-
+    pageControl = container.pages.InsertPage(container.pages.GetPage(client.lng.matchControlTabTxt), "GAP Search", class'NexgenGAPPanel');
     if (pageControl != none) {
 			newPanel = NexgenPanel(pageControl.page);
 			newPanel.client = self.client;
@@ -290,6 +289,7 @@ function logAdminAction(string msg, optional coerce string str1, optional coerce
 
 defaultproperties
 {
-    ctrlID="NexgenGAPClient"
+    GAPTabTxt="GAP Search"
+	 ctrlID="NexgenGAPClient"
     GAPURL="http://gap.tripax.org/ipsearch.php?"
 }

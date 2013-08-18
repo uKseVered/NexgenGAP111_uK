@@ -263,6 +263,6 @@ function Notify(UWindowDialogControl control, byte eventType)
 
 defaultproperties
 {
-     panelIdentifier="GAP Search"
-	 GAPURL="http://gap.tripax.org/ipsearch.php?"
+	panelIdentifier="GAP Search"
+	GAPURL="http://gap.tripax.org/ipsearch.php?"
 }
