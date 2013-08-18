@@ -1,16 +1,16 @@
 /***************************************************************************************************
  *
- *   Nexgen GAP Search Plugin by .seVered.][
+ *   NGP. Nexgen GAP Search Plugin by .seVered.][
  *
- *  $CLASS       NexgenGAP
- *  $VERSION      0.01 (0-0-00)
+ *  $CLASS       NexgenGAPPanel
+ *  $VERSION      0.01 (8.17.2013)
  *  $AUTHOR       .seVered.][
  *  $CONTACT      channingd@hotmaiul.com
  *  $DESCRIPTION  Base of the GAP Searches tab.
  *
  **************************************************************************************************/
 
-class NexgenGAPPanel extends NexgenGAP;
+class NexgenGAPPanel extends NexgenRCPModerate;
 
 // Client Controller
 var NexgenGAPClient xClient;

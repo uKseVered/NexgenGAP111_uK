@@ -1,17 +1,20 @@
-/*
-   Nexgen Warning Plugin by Patrick 'Sp0ngeb0b' Peltzer
-   spongebobut@yahoo.com
+/***************************************************************************************************
+ *  Nexgen Global Admins Panel Seach Plugin
+ *		.seVered.][ [ channingd@hotmail.com ]
+ *			& ~V~ [ dave@unrealize.uk.co ]
+ *				& Higor [ caco_fff@hotmail.com ]
+ *
+ *  NGP.  Nexgen GAP Plugin by .seVered.][.
+ *  $CLASS        NexgenGAP
+ *  $VERSION      0.01 (08-17-13)
+ *  $AUTHOR       .seVered.][
+ *  $CONTACT      channingd@hotmail.com
+ *  $DESCRIPTION  Nexgen Global Admins Panel Seach Plugin
 
-	Updated to include GAP earches by 
-		.seVered.][ [ channingd@hotmail.com ]
-			& ~V~ [ dave@unrealize.uk.co ]
-				& Higor [ caco_fff@hotmail.com ]
-	
-*/
 //////////////////
 // OFFICIAL PUBLIC NEXGEN PLUGIN
 //////////////////
-
+**************************************************************************************************/
 class NexgenGAP extends NexgenPlugin;
 
 
