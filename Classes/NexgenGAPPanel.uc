@@ -61,59 +61,78 @@ function setContent()
     p.splitRegionV(64);
     p.addLabel(client.lng.ipAddressTxt, true);
     p.splitRegionV(48, , , true);
-    p.addLabel(client.lng.clientIDTxt, true);
+	 p.addLabel(client.lng.clientIDTxt, true);
     p.splitRegionV(48, , , true);
+//    p.addLabel("HWID", true);
+//   p.splitRegionV(48, , , true);
     ipAddressLabel = p.addLabel();
     copyIPAddressButton = p.addButton(client.lng.copyTxt);
     clientIDLabel = p.addLabel();
-    copyClientIDButton = p.addButton(client.lng.copyTxt);
+	 copyClientIDButton = p.addButton(client.lng.copyTxt);
+	 //copyHWIDButton = p.addButton(client.lng.copyTxt);
+    //yclientHWIDLabel = p.addLabel();
 
-    // Player controller.
-    splitRegionH(51, defaultComponentDist);
-    p = addContentPanel();
-    p.divideRegionH(2);
+	 splitRegionH(51, defaultComponentDist);
+	 p = addContentPanel();
+	 p.divideRegionH(2);
     p.splitRegionV(96, defaultComponentDist);
     p.splitRegionV(96, defaultComponentDist);
-    muteToggleButton = p.addButton(client.lng.muteToggleTxt);
-    p.skipRegion();
-    setNameButton = p.addButton(client.lng.setPlayerNameTxt);
-    playerNameInp = p.addEditBox();
 
-    // Ban controller.
-    splitRegionH(107, defaultComponentDist);
-    p = addContentPanel();
-    p.divideRegionH(5);
-    p.splitRegionV(96, defaultComponentDist);
-    p.splitRegionV(96, defaultComponentDist);
-    p.splitRegionV(96, defaultComponentDist);
-    p.splitRegionV(96, defaultComponentDist);
-    p.splitRegionV(96, defaultComponentDist);
-    p.addLabel("Warn reason");
-    warnInp = p.addEditBox();
-    p.addLabel(client.lng.banReasonTxt);
-    banReasonInp = p.addEditBox();
-    warnButton = p.addButton("Warn");
-    p.splitRegionV(96, defaultComponentDist);
-    kickButton = p.addButton(client.lng.kickPlayerTxt);
-    p.splitRegionV(96, defaultComponentDist);
-    banButton = p.addButton(client.lng.banPlayerTxt);
-    p.splitRegionV(96, defaultComponentDist);
-    banForeverInp = p.addCheckBox(TA_Left, client.lng.banForeverTxt);
-    p.skipRegion();
-    banMatchesInp = p.addCheckBox(TA_Left, client.lng.banMatchesTxt);
-    numMatchesInp = p.addEditBox();
-    banDaysInp = p.addCheckBox(TA_Left, client.lng.banDaysTxt);
-    numDaysInp = p.addEditBox();
 
-    // Game controller.
-    splitRegionH(65);
-    p = addContentPanel();
-    p.divideRegionH(3);
-    muteAllInp = p.addCheckBox(TA_Left, client.lng.muteAllTxt);
-    allowNameChangeInp = p.addCheckBox(TA_Left, client.lng.allowNameChangeTxt);
-    p.splitRegionV(96, defaultComponentDist);
-    showMsgButton = p.addButton(client.lng.showAdminMessageTxt);
-    messageInp = p.addEditBox();
+
+
+
+
+
+
+
+
+	// Player controller.
+//   splitRegionH(51, defaultComponentDist);
+//   p = addContentPanel();
+//   p.divideRegionH(2);
+//   p.splitRegionV(96, defaultComponentDist);
+//   p.splitRegionV(96, defaultComponentDist);
+//   muteToggleButton = p.addButton(client.lng.muteToggleTxt);
+//   p.skipRegion();
+//   setNameButton = p.addButton(client.lng.setPlayerNameTxt);
+//   playerNameInp = p.addEditBox();
+//
+//   // Ban controller.
+//   splitRegionH(107, defaultComponentDist);
+//   p = addContentPanel();
+//   p.divideRegionH(5);
+//   p.splitRegionV(96, defaultComponentDist);
+//   p.splitRegionV(96, defaultComponentDist);
+//   p.splitRegionV(96, defaultComponentDist);
+//   p.splitRegionV(96, defaultComponentDist);
+//   p.splitRegionV(96, defaultComponentDist);
+//   p.addLabel("Warn reason");
+//   warnInp = p.addEditBox();
+//   p.addLabel(client.lng.banReasonTxt);
+//   banReasonInp = p.addEditBox();
+//   warnButton = p.addButton("Warn");
+//   p.splitRegionV(96, defaultComponentDist);
+//   kickButton = p.addButton(client.lng.kickPlayerTxt);
+//   p.splitRegionV(96, defaultComponentDist);
+//   banButton = p.addButton(client.lng.banPlayerTxt);
+//   p.splitRegionV(96, defaultComponentDist);
+//   banForeverInp = p.addCheckBox(TA_Left, client.lng.banForeverTxt);
+//   p.skipRegion();
+//   banMatchesInp = p.addCheckBox(TA_Left, client.lng.banMatchesTxt);
+//   numMatchesInp = p.addEditBox();
+//   banDaysInp = p.addCheckBox(TA_Left, client.lng.banDaysTxt);
+//   numDaysInp = p.addEditBox();
+//
+//   // Game controller.
+//   splitRegionH(65);
+//   p = addContentPanel();
+//   p.divideRegionH(3);
+//   muteAllInp = p.addCheckBox(TA_Left, client.lng.muteAllTxt);
+//   allowNameChangeInp = p.addCheckBox(TA_Left, client.lng.allowNameChangeTxt);
+//   p.splitRegionV(96, defaultComponentDist);
+//   showMsgButton = p.addButton(client.lng.showAdminMessageTxt);
+//   messageInp = p.addEditBox();
 
     // Configure components.
     playerNameInp.setMaxLength(32);
@@ -128,29 +147,29 @@ function setContent()
     muteToggleButton.register(self);
     setNameButton.register(self);
 
-    warnButton.register(self);
-    kickButton.register(self);
-    banButton.register(self);
-    showMsgButton.register(self);
-    banForeverInp.register(self);
-    banMatchesInp.register(self);
-    banDaysInp.register(self);
-    muteAllInp.register(self);
-    allowNameChangeInp.register(self);
-    banMatchesInp.bChecked = true;
-    numMatchesInp.setValue("3");
-    numDaysInp.setValue("7");
-    playerSelected();
-    banPeriodSelected();
-    setValues();
-
+//   warnButton.register(self);
+//   kickButton.register(self);
+//   banButton.register(self);
+//   showMsgButton.register(self);
+//   banForeverInp.register(self);
+//   banMatchesInp.register(self);
+//   banDaysInp.register(self);
+//   muteAllInp.register(self);
+//   allowNameChangeInp.register(self);
+//   banMatchesInp.bChecked = true;
+//   numMatchesInp.setValue("3");
+//   numDaysInp.setValue("7");
+//   playerSelected();
+//   banPeriodSelected();
+//   setValues();
+//
     //GAP section
 
     //UWindowSmallButton(CreateControl(class'UWindowSmallButton', X, Y, Width, Height));
 
-    GAPButtonsX = 308;
-    GAPButtonsY = 49;
-    GAPButtonsSpacer =45;
+    GAPButtonsX = 266;
+    GAPButtonsY = 72;
+    GAPButtonsSpacer = 45;
     GAPButtonsWidth = 39;
 
     GAPNameButton = UWindowSmallButton(CreateControl(class'UWindowSmallButton',GAPButtonsX, GAPButtonsY,GAPButtonsWidth, 1));
